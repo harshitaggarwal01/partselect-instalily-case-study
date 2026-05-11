@@ -1,0 +1,128 @@
+{
+  "threads": [
+    {
+      "id": "thr_5525aad2",
+      "user_id": "user_instalily",
+      "title": "New Conversation",
+      "created_at": "2026-05-11T21:23:00Z",
+      "updated_at": "2026-05-11T21:41:24Z"
+    },
+    {
+      "id": "thr_78035049",
+      "user_id": "user_instalily",
+      "title": "New Conversation",
+      "created_at": "2026-05-11T21:23:45Z",
+      "updated_at": "2026-05-11T21:23:54Z"
+    },
+    {
+      "id": "thr_7859219a",
+      "user_id": "user_instalily",
+      "title": "New Conversation",
+      "created_at": "2026-05-11T21:24:05Z",
+      "updated_at": "2026-05-11T21:24:33Z"
+    },
+    {
+      "id": "thr_e8ad0dc1",
+      "user_id": "user_instalily",
+      "title": "New Conversation",
+      "created_at": "2026-05-11T21:26:06Z",
+      "updated_at": "2026-05-11T21:26:08Z"
+    },
+    {
+      "id": "thr_0d411060",
+      "user_id": "user_instalily",
+      "title": "New Conversation",
+      "created_at": "2026-05-11T21:41:50Z",
+      "updated_at": "2026-05-11T21:41:50Z"
+    },
+    {
+      "id": "thr_cb9eea4d",
+      "user_id": "user_instalily",
+      "title": "New Conversation",
+      "created_at": "2026-05-11T21:41:52Z",
+      "updated_at": "2026-05-11T21:42:08Z"
+    }
+  ],
+  "messages": [
+    {
+      "role": "user",
+      "content": "How do I install part PS11752778?",
+      "thread_id": "thr_5525aad2"
+    },
+    {
+      "role": "assistant",
+      "content": "Here are the installation instructions for part PS11752778, the Ice Maker Assembly:",
+      "thread_id": "thr_5525aad2"
+    },
+    {
+      "role": "user",
+      "content": "How do I install part PS11752778?",
+      "thread_id": "thr_5525aad2"
+    },
+    {
+      "role": "assistant",
+      "content": "Here are the installation instructions for part PS11752778, the Ice Maker Assembly:",
+      "thread_id": "thr_5525aad2"
+    },
+    {
+      "role": "user",
+      "content": "What is part W10195682?",
+      "thread_id": "thr_78035049"
+    },
+    {
+      "role": "assistant",
+      "content": "I don't have specific information about part number W10195682 in my current catalog. However, this appears to be a Whirlpool part number format (starting with \"W10\").\n\nTo find details about this part, I recommend:\n\n1. **Search directly on PartSelect**: Visit https://www.partselect.com and enter \"W10195682\" in the search bar\n2. **Check your appliance's model number**: If you know your refrigerator or dishwasher model number, I can help you find compatible parts\n\nIs this part for a refrigerator or dishwasher? If you can share your appliance's model number or describe what component you're looking for (like a water filter, ice maker part, dishwasher rack, etc.), I'd be happy to help you find the right part!",
+      "thread_id": "thr_78035049"
+    },
+    {
+      "role": "user",
+      "content": "My refrigerator ice maker is not working",
+      "thread_id": "thr_7859219a"
+    },
+    {
+      "role": "assistant",
+      "content": "I understand how frustrating it is when your ice maker stops working—let's get it making ice again.",
+      "thread_id": "thr_7859219a"
+    },
+    {
+      "role": "user",
+      "content": "give a dishwasher part",
+      "thread_id": "thr_7859219a"
+    },
+    {
+      "role": "assistant",
+      "content": "I'd be happy to help you find a dishwasher part! To locate the right part for you, I need a bit more information:\n\n1. **What part are you looking for?** (e.g., spray arm, door latch, rack wheel, heating element, drain pump)\n2. **What's your dishwasher's brand and model number?** (This ensures compatibility)\n\nAlternatively, if you have a specific part number, I can help you find it.\n\nYou can also browse dishwasher parts directly on our website at **https://www.partselect.com** by entering your model number or searching by part type.\n\nWhat specific dishwasher part do you need?",
+      "thread_id": "thr_7859219a"
+    },
+    {
+      "role": "user",
+      "content": "My refrigerator ice maker is not working",
+      "thread_id": "thr_e8ad0dc1"
+    },
+    {
+      "role": "assistant",
+      "content": "I understand how frustrating it is when your ice maker stops working—let's get it making ice again.",
+      "thread_id": "thr_e8ad0dc1"
+    },
+    {
+      "role": "user",
+      "content": "How do I install part PS11752778?",
+      "thread_id": "thr_5525aad2"
+    },
+    {
+      "role": "assistant",
+      "content": "Here are the installation instructions for part PS11752778, the Ice Maker Assembly:",
+      "thread_id": "thr_5525aad2"
+    },
+    {
+      "role": "user",
+      "content": "How do I install part PS11752778?",
+      "thread_id": "thr_cb9eea4d"
+    },
+    {
+      "role": "assistant",
+      "content": "Here are the installation instructions for part PS11752778, the Ice Maker Assembly:",
+      "thread_id": "thr_cb9eea4d"
+    }
+  ]
+}

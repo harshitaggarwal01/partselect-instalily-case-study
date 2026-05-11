@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Literal, Union
+from typing import Literal, Optional, Union
 
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated
@@ -14,6 +14,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     messages: list[ChatMessage]
     session_id: str | None = None
+    thread_id: Optional[str] = None
 
 
 class Product(BaseModel):
@@ -40,6 +41,7 @@ class TroubleshootStep(BaseModel):
 class BaseResponse(BaseModel):
     type: str
     text: str
+    thread_id: Optional[str] = None
 
 
 class ProductInfoResponse(BaseResponse):

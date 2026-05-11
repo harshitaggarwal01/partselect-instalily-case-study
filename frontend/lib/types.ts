@@ -22,11 +22,13 @@ export interface TroubleshootStep {
 interface BaseResponse {
   type: string;
   text: string;
+  thread_id?: string | null;
 }
 
 export interface ProductInfoResponse extends BaseResponse {
   type: "product_info";
   products: Product[];
+  thread_id?: string | null;
 }
 
 export interface InstallResponse extends BaseResponse {
@@ -35,6 +37,7 @@ export interface InstallResponse extends BaseResponse {
   steps: InstallStep[];
   sources: string[];
   part_image_url: string | null;
+  thread_id?: string | null;
 }
 
 export interface CompatibilityResponse extends BaseResponse {
@@ -43,6 +46,7 @@ export interface CompatibilityResponse extends BaseResponse {
   model_number: string | null;
   status: "compatible" | "not_compatible" | "unknown";
   details: string | null;
+  thread_id?: string | null;
 }
 
 export interface TroubleshootingResponse extends BaseResponse {
@@ -52,6 +56,29 @@ export interface TroubleshootingResponse extends BaseResponse {
   steps: TroubleshootStep[];
   sources: string[];
   part_suggestions: Product[];
+  thread_id?: string | null;
+}
+
+export interface Thread {
+  id: string;
+  user_id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CartItem {
+  part_number: string;
+  name: string;
+  url?: string | null;
+  image_url?: string | null;
+  price?: number | null;
+  quantity: number;
+}
+
+export interface Cart {
+  user_id: string;
+  items: CartItem[];
 }
 
 export type ChatResponse =

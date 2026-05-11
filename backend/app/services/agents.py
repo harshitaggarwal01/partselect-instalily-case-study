@@ -29,6 +29,7 @@ from app.models.schemas import (
 from app.tools.compatibility import check_compatibility
 from app.tools.guides import find_install_guides, find_troubleshooting_guides
 from app.tools.products import get_product, lookup_part_live, search_products
+from app.tools.rerank import rerank_chunks
 
 _INSTALL_SCHEMA = """
 {
@@ -113,6 +114,8 @@ class InstallAgent(BaseAgent):
         product = get_product(part_number) if part_number else None
         guides = await find_install_guides(part_number=part_number)
         logger.info("InstallAgent: guides from %s", {g.get("_source", "unknown") for g in guides})
+        if len(guides) > 3:
+            guides = await rerank_chunks(user_msg, guides, top_k=3)
 
         context_parts = []
         if product:
@@ -266,8 +269,9 @@ class ProductInfoAgent(BaseAgent):
                 else "https://www.partselect.com"
             )
             catalog_context = (
-                f"No matching parts found in the catalog. "
-                f"The customer can check directly on PartSelect: {search_link}"
+                f"Part number **{part_num}** is not in our local catalog. "
+                f"Tell the user it's not in local data and include this clickable link: "
+                f"[Search for {part_num} on PartSelect]({search_link})"
             )
 
         messages = self._build_messages(
@@ -313,6 +317,8 @@ class TroubleshootingAgent(BaseAgent):
             symptom=user_msg, appliance_type=appliance_type
         )
         logger.info("TroubleshootingAgent: guides from %s", {g.get("_source", "unknown") for g in guides})
+        if len(guides) > 3:
+            guides = await rerank_chunks(user_msg, guides, top_k=3)
 
         context_parts = []
         for g in guides[:2]:

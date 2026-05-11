@@ -44,13 +44,19 @@ def _cosine_scores(query_vec: np.ndarray, corpus: np.ndarray) -> np.ndarray:
 
 async def async_similarity_search(
     query: str,
-    k: int = 3,
+    k: int = 6,
     appliance_type: Optional[str] = None,
     kind: Optional[str] = None,
+    symptom_keyword: Optional[str] = None,
+    part_number: Optional[str] = None,
 ) -> List[dict]:
     """Embed query then return the top-k most similar chunks.
 
     Returns empty list if the vector index hasn't been built yet (graceful fallback).
+
+    Optional metadata boosts (applied before sorting):
+    - symptom_keyword: multiply score by 1.2 if chunk's symptom_keywords contains it
+    - part_number: multiply score by 1.3 if chunk's part_numbers contains it
     """
     if not _ensure_loaded():
         return []
@@ -72,6 +78,21 @@ async def async_similarity_search(
 
     candidate_matrix = _embeddings[candidates]  # type: ignore[index]
     scores = _cosine_scores(query_vec, candidate_matrix)
+
+    # Apply metadata boosts before sorting
+    symptom_kw_lower = symptom_keyword.lower() if symptom_keyword else None
+    part_num_lower = part_number.lower() if part_number else None
+
+    for local_idx, global_idx in enumerate(candidates):
+        entry = _index[global_idx]
+        if symptom_kw_lower is not None:
+            kw_list = [kw.lower() for kw in entry.get("symptom_keywords", [])]
+            if symptom_kw_lower in kw_list:
+                scores[local_idx] *= 1.2
+        if part_num_lower is not None:
+            pn_list = [pn.lower() for pn in entry.get("part_numbers", [])]
+            if part_num_lower in pn_list:
+                scores[local_idx] *= 1.3
 
     # Sort by descending score and take top-k
     top_local = int(min(k, len(candidates)))

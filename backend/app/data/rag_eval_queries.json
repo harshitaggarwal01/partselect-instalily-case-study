@@ -1,0 +1,58 @@
+[
+  {
+    "id": "q1",
+    "query": "How do I install part PS11752778?",
+    "kind": "install",
+    "appliance_type": "refrigerator",
+    "expected_guide_ids": ["ig-001"]
+  },
+  {
+    "id": "q2",
+    "query": "My refrigerator ice maker is not working",
+    "kind": "troubleshooting",
+    "appliance_type": "refrigerator",
+    "expected_guide_ids": ["tg-001"]
+  },
+  {
+    "id": "q3",
+    "query": "Steps to replace refrigerator water filter",
+    "kind": "install",
+    "appliance_type": "refrigerator",
+    "expected_guide_ids": ["ig-003"]
+  },
+  {
+    "id": "q4",
+    "query": "Dishwasher not cleaning dishes properly",
+    "kind": "troubleshooting",
+    "appliance_type": "dishwasher",
+    "expected_guide_ids": ["tg-003"]
+  },
+  {
+    "id": "q5",
+    "query": "How to fix dishwasher door that won't close",
+    "kind": "install",
+    "appliance_type": "dishwasher",
+    "expected_guide_ids": ["ig-004"]
+  },
+  {
+    "id": "q6",
+    "query": "Dishwasher not draining after cycle",
+    "kind": "troubleshooting",
+    "appliance_type": "dishwasher",
+    "expected_guide_ids": ["tg-004"]
+  },
+  {
+    "id": "q7",
+    "query": "Refrigerator not cooling enough",
+    "kind": "troubleshooting",
+    "appliance_type": "refrigerator",
+    "expected_guide_ids": ["tg-002"]
+  },
+  {
+    "id": "q8",
+    "query": "Install dishwasher lower spray arm W10195682",
+    "kind": "install",
+    "appliance_type": "dishwasher",
+    "expected_guide_ids": ["ig-002"]
+  }
+]

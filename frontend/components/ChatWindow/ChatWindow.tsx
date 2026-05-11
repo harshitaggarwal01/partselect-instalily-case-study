@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { sendChat } from "@/lib/apiClient";
+import { useAuth } from "@/context/AuthContext";
 import type { FrontendMessage } from "@/lib/types";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
@@ -11,13 +12,38 @@ function uid() {
   return `msg-${++idCounter}`;
 }
 
-export default function ChatWindow() {
+interface Props {
+  currentThreadId?: string | null;
+  initialMessages?: { role: string; content: string }[];
+  onThreadCreated?: (id: string) => void;
+}
+
+export default function ChatWindow({ currentThreadId, initialMessages, onThreadCreated }: Props) {
+  const { token } = useAuth();
   const [messages, setMessages] = useState<FrontendMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  // Session ID persists for the lifetime of this component instance
+  // Session ID persists for the lifetime of this component instance (backward compat)
   const sessionId = useRef<string>(crypto.randomUUID());
+  // Keep a ref to the latest initialMessages so the effect below can read it without being a dep
+  const initialMessagesRef = useRef(initialMessages);
+  useEffect(() => { initialMessagesRef.current = initialMessages; }, [initialMessages]);
+
+  // When the thread switches, reload messages from initialMessages
+  useEffect(() => {
+    const msgs = initialMessagesRef.current;
+    if (msgs && msgs.length > 0) {
+      const hydrated: FrontendMessage[] = msgs.map((m) => ({
+        id: uid(),
+        role: m.role as "user" | "assistant",
+        content: m.content,
+      }));
+      setMessages(hydrated);
+    } else {
+      setMessages([]);
+    }
+  }, [currentThreadId]); // re-run whenever the thread changes
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,7 +63,12 @@ export default function ChatWindow() {
     setIsLoading(true);
 
     try {
-      const response = await sendChat(nextMessages, sessionId.current);
+      const response = await sendChat(
+        nextMessages,
+        sessionId.current,
+        token ?? undefined,
+        currentThreadId ?? undefined
+      );
       const assistantMsg: FrontendMessage = {
         id: uid(),
         role: "assistant",
@@ -45,6 +76,11 @@ export default function ChatWindow() {
         response,
       };
       setMessages((prev) => [...prev, assistantMsg]);
+
+      // Notify parent if backend assigned a new thread
+      if (response.thread_id && onThreadCreated && response.thread_id !== currentThreadId) {
+        onThreadCreated(response.thread_id);
+      }
     } catch {
       setError("Something went wrong. Please check that the backend is running and try again.");
     } finally {

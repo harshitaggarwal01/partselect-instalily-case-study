@@ -2,6 +2,7 @@ import type { FrontendMessage } from "@/lib/types";
 import CompatWidget from "../CompatWidget";
 import { MessageCircle } from "../Icons";
 import InstallWidget from "../InstallWidget";
+import { MarkdownText } from "../MarkdownText";
 import ProductCard from "../ProductCard";
 import TroubleshootWidget from "../TroubleshootWidget";
 
@@ -73,7 +74,9 @@ export default function MessageList({ messages, onExampleClick }: Props) {
                   )}
                   {msg.response.type === "product_info" && (
                     <div className="flex flex-col gap-3">
-                      <p className="text-sm text-gray-700">{msg.response.text}</p>
+                      <div className="text-sm text-gray-700">
+                        <MarkdownText text={msg.response.text} />
+                      </div>
                       {msg.response.products.map((p) => (
                         <ProductCard key={p.part_number} product={p} />
                       ))}
@@ -81,7 +84,9 @@ export default function MessageList({ messages, onExampleClick }: Props) {
                   )}
                 </>
               ) : (
-                <p className="text-sm text-gray-700 leading-relaxed">{msg.content}</p>
+                <div className="text-sm text-gray-700 leading-relaxed">
+                  <MarkdownText text={msg.content} />
+                </div>
               )}
             </div>
           )}
