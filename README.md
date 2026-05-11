@@ -113,38 +113,36 @@ All data lives under `backend/app/data`:
 
 ---
 
+## LLM & Modularity
+
+The assistant is built on **Anthropic Claude** (Sonnet for full answers, Haiku for fast/cheap tasks like classification and reranking), but the integration is intentionally isolated:
+
+- **Swap the LLM:** everything that talks to Claude is in `backend/app/llm/claude_client.py`. Rewriting `chat_claude()` and `chat_claude_json()` there is all it takes to use OpenAI, Gemini, or any other provider.
+- **Swap embeddings:** similarly isolated in `backend/app/tools/embeddings.py`.
+
+**Running without API keys:**
+- No `ANTHROPIC_API_KEY` → server starts but all `/api/chat` calls return HTTP 500. Add a dummy key and stub out `chat_claude()` for UI-only testing.
+- No `EMBEDDING_API_KEY` → app works fully except vector search (RAG is disabled). Agents fall back to catalog-only data (products.json + compatibility.json), which still produces useful responses for known parts.
+
+---
+
 ## Running Locally
 
-### 1. Backend
+See **[setup.md](setup.md)** for the full setup guide, including all environment variables, what each key does, what happens without them, and common troubleshooting steps.
+
+Quick start:
 
 ```bash
-cd backend
-
-# Create and activate venv (if needed)
-python -m venv .venv
-source .venv/bin/activate        # Linux/macOS
-# .venv\Scripts\activate        # Windows
-
-pip install -r requirements.txt
-
-# (Optional but recommended) rebuild vector index
-PYTHONPATH=. python scripts/build_index.py
-
-# Start FastAPI
+# Backend
+cd backend && pip install -r requirements.txt
+PYTHONPATH=. python scripts/build_index.py   # build vector index once
 uvicorn app.main:app --reload
+
+# Frontend (separate terminal)
+cd frontend && npm install && npm run dev
 ```
 
-The backend runs on `http://localhost:8000`.
-
-### 2. Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The frontend runs on `http://localhost:3000`.
+Copy `backend/.env.example` → `backend/.env` and fill in `ANTHROPIC_API_KEY` and `EMBEDDING_API_KEY` before starting.
 
 ---
 
@@ -188,6 +186,17 @@ This prints Recall@3 over a small labelled query set.
 - JSON storage is not suitable for high‑throughput production; a relational DB + vector DB would be the natural next step.
 - Cart and order flows are one‑way handoffs; real integration would involve secure APIs with PartSelect.
 - No analytics dashboard yet; logs exist but aren’t fed into metrics.
+
+---
+
+## Documentation
+
+| File | Contents |
+|------|----------|
+| [setup.md](setup.md) | Full local setup guide — env vars, prerequisites, common issues |
+| [detail.md](detail.md) | Every file, every feature, how it all works |
+| [changes_10_may.md](changes_10_may.md) | Changelog — 10 May 2026 (images, intent fixes, session store, widgets) |
+| [changes_11_may.md](changes_11_may.md) | Changelog — 11 May 2026 (auth, threads, cart, UI redesign, RAG, bug fixes) |
 
 ---
 
