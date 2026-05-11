@@ -15,6 +15,7 @@ export interface InstallStep {
 
 export interface TroubleshootStep {
   step_number: number;
+  title: string;
   description: string;
 }
 
@@ -33,6 +34,7 @@ export interface InstallResponse extends BaseResponse {
   part: Product | null;
   steps: InstallStep[];
   sources: string[];
+  part_image_url: string | null;
 }
 
 export interface CompatibilityResponse extends BaseResponse {
@@ -49,6 +51,7 @@ export interface TroubleshootingResponse extends BaseResponse {
   issue: string | null;
   steps: TroubleshootStep[];
   sources: string[];
+  part_suggestions: Product[];
 }
 
 export type ChatResponse =

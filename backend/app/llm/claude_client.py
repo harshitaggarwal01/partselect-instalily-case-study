@@ -7,6 +7,9 @@ import anthropic
 
 from app.core.config import settings
 
+MODEL_FULL = "claude-sonnet-4-5"
+MODEL_FAST = "claude-haiku-4-5-20251001"
+
 DOMAIN_SYSTEM_PROMPT = """You are a helpful customer support agent for PartSelect, an online retailer \
 specializing in appliance parts. You assist customers exclusively with refrigerator and dishwasher parts, \
 installation instructions, compatibility questions, and troubleshooting. \
@@ -32,11 +35,12 @@ async def chat_claude(
     system_prompt: str,
     messages: list[dict],
     max_tokens: int = 1024,
+    model: str = MODEL_FULL,
 ) -> str:
     try:
         client = _get_client()
         response = client.messages.create(
-            model="claude-sonnet-4-5",
+            model=model,
             max_tokens=max_tokens,
             system=system_prompt,
             messages=messages,

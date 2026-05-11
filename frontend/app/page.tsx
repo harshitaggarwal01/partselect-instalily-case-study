@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight, MessageCircle } from "@/components/Icons";
 
 export default function Home() {
   return (
@@ -6,18 +7,7 @@ export default function Home() {
       <main className="flex flex-col items-center text-center max-w-2xl gap-8 py-24">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-[#0066cc] flex items-center justify-center">
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
+            <MessageCircle className="w-[22px] h-[22px] text-white" />
           </div>
           <span className="text-sm font-semibold text-[#0066cc] tracking-wide uppercase">
             PartSelect Support
@@ -59,18 +49,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 rounded-full bg-[#0066cc] px-8 py-3 text-white font-semibold text-base hover:bg-[#0055aa] transition-colors"
         >
           Start a conversation
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          <ArrowRight className="w-4 h-4" />
         </Link>
 
         <p className="text-xs text-gray-400">

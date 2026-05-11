@@ -16,6 +16,8 @@ export default function ChatWindow() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  // Session ID persists for the lifetime of this component instance
+  const sessionId = useRef<string>(crypto.randomUUID());
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,7 +37,7 @@ export default function ChatWindow() {
     setIsLoading(true);
 
     try {
-      const response = await sendChat(nextMessages);
+      const response = await sendChat(nextMessages, sessionId.current);
       const assistantMsg: FrontendMessage = {
         id: uid(),
         role: "assistant",
@@ -50,11 +52,17 @@ export default function ChatWindow() {
     }
   }
 
+  function handleExampleClick(text: string) {
+    if (!isLoading) {
+      handleSubmit(text);
+    }
+  }
+
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       {/* Scrollable message area */}
       <div className="flex-1 overflow-y-auto">
-        <MessageList messages={messages} />
+        <MessageList messages={messages} onExampleClick={handleExampleClick} />
 
         {isLoading && (
           <div className="flex justify-start px-4 pb-2">

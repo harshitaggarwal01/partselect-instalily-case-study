@@ -10,7 +10,16 @@ export default function InstallWidget({ data }: Props) {
     <div className="flex flex-col gap-4">
       <p className="text-sm text-gray-700">{data.text}</p>
 
-      {data.part && <ProductCard product={data.part} />}
+      {data.part ? (
+        <ProductCard product={data.part} />
+      ) : data.part_image_url ? (
+        <img
+          src={data.part_image_url}
+          alt="Part"
+          className="w-16 h-16 object-contain rounded border border-gray-200"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+        />
+      ) : null}
 
       {data.steps.length > 0 && (
         <ol className="flex flex-col gap-3">
@@ -35,15 +44,15 @@ export default function InstallWidget({ data }: Props) {
       {data.sources.length > 0 && (
         <div className="flex flex-col gap-1">
           <span className="text-xs font-semibold text-gray-500">Sources</span>
-          {data.sources.map((src) => (
+          {data.sources.map((src, i) => (
             <a
               key={src}
               href={src}
               target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-[#0066cc] hover:underline truncate"
+              rel="noreferrer noopener"
+              className="text-xs text-[#0066cc] hover:underline"
             >
-              {src}
+              PartSelect Guide {i + 1} →
             </a>
           ))}
         </div>

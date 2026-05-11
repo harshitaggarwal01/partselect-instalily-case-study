@@ -1,7 +1,9 @@
 "use client";
 
 import ChatWindow from "@/components/ChatWindow/ChatWindow";
+import { MessageCircle } from "@/components/Icons";
 import Link from "next/link";
+import { useRef } from "react";
 
 const INTENT_HINTS = [
   "How do I install part PS11752778?",
@@ -10,16 +12,22 @@ const INTENT_HINTS = [
   "What is part W10195682?",
 ];
 
+const TIPS = [
+  "Use part numbers like PS11752778 for exact results",
+  "Describe symptoms in plain language",
+  "Mention your appliance model for compatibility checks",
+];
+
 export default function SupportPage() {
+  const chatWindowRef = useRef<{ submit: (text: string) => void } | null>(null);
+
   return (
     <div className="flex flex-col h-screen bg-white">
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-3 border-b border-gray-200 bg-white shrink-0">
         <Link href="/" className="flex items-center gap-2 text-[#0066cc] font-bold text-lg">
           <div className="w-7 h-7 rounded-full bg-[#0066cc] flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
+            <MessageCircle className="w-[14px] h-[14px] text-white" />
           </div>
           PartSelect Support
         </Link>
@@ -61,6 +69,20 @@ export default function SupportPage() {
                   >
                     {hint}
                   </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              Tips
+            </h2>
+            <ul className="flex flex-col gap-2">
+              {TIPS.map((tip) => (
+                <li key={tip} className="flex items-start gap-2 text-xs text-gray-500">
+                  <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#0066cc] shrink-0" />
+                  {tip}
                 </li>
               ))}
             </ul>

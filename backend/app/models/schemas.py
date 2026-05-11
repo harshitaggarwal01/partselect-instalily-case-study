@@ -33,6 +33,7 @@ class InstallStep(BaseModel):
 
 class TroubleshootStep(BaseModel):
     step_number: int
+    title: str = ""
     description: str
 
 
@@ -51,6 +52,7 @@ class InstallResponse(BaseResponse):
     part: Product | None = None
     steps: list[InstallStep]
     sources: list[str]
+    part_image_url: str | None = None
 
 
 class CompatibilityResponse(BaseResponse):
@@ -67,6 +69,7 @@ class TroubleshootingResponse(BaseResponse):
     issue: str | None = None
     steps: list[TroubleshootStep]
     sources: list[str]
+    part_suggestions: list[Product] = []
 
 
 ChatResponse = Annotated[
