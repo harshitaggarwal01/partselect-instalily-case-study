@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+*.pyc
 
 # debug
 npm-debug.log*
@@ -42,3 +43,10 @@ frontend/CLAUDE.md
 backend/.env.example
 .claude
 .worktrees
+backend/app/api/__pycache__/chat.cpython-38.pyc
+backend/app/core/__pycache__/config.cpython-38.pyc
+backend/app/llm/__pycache__/claude_client.cpython-38.pyc
+backend/app/services/__pycache__/agent.cpython-38.pyc
+backend/app/services/__pycache__/intent_router.cpython-38.pyc
+backend/app/tools/__pycache__/guides.cpython-38.pyc
+backend/app/tools/__pycache__/products.cpython-38.pyc
